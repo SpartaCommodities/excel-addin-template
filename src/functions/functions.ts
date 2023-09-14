@@ -28,9 +28,10 @@ export function incrementStreaming(invocation: CustomFunctions.StreamingInvocati
 export function increment(invocation: CustomFunctions.Invocation): any[][] {
   let result = 0;
 
+  const [sheetId, cellId] = invocation.address.split("!");
+
   setInterval(() => {
     Excel.run((context) => {
-      const [sheetId, cellId] = invocation.address.split("!");
       const cell = context.workbook.worksheets.getItem(sheetId).getRange(cellId);
 
       cell.values = [[result]];
